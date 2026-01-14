@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Day1</title>
+</head>
+<body>
+    <h1>Regristration Form</h1>
+    <form id="regForm" action="/submit" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" required>
+        <span id="usernameError" class="error"></span>
+        <br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <span id="passwordError" class="error"></span>
+        <br><br>
+
+        <label for="dob">DOB:</label>
+        <input type="date" id="dob">
+        <span id="dobError" class="error"></span>
+        <br><br>
+
+        <label for="phone">Phone No:</label>
+        <input type="number" id="phone">
+        <span id="phoneError" class="error"></span>
+        <br><br>
+        <hr width="100%" size="2" shade />
+        <button type="submit">Submit</button>
+    </form>
+    <script>
+        document.getElementById("regForm").addEventListener("submit", function (event){
+            let isValid = true;
+            const username=document.getElementById("username").value.trim('');
+            if(username.length<3){
+                document.getElementById("usernameError").textContent="Username must be greater than 3 characters."
+                isValid=false;
+            }
+            const password=document.getElementById("password").value;
+            if(password.length<6){
+                document.getElementById("passwordError").textContent="Password Length should be greater than 6."
+                isValid=false;
+            }
+            const dob = document.getElementById("dob").value;
+            if (!dob) {
+                document.getElementById("dobError").textContent = "Date of Birth is required.";
+                isValid = false;
+            } else {
+                const dobDate = new Date(dob);
+                const today = new Date();
+                if (dobDate >= today) {
+                    document.getElementById("dobError").textContent = "DOB must be in the past.";
+                    isValid = false;
+                }
+            }
+
+            const phone = document.getElementById("phone").value;
+            if(!phone){
+                document.getElementById("phoneError").textContent="Phone number is required!!"
+                isValid=false;
+            }
+            if(!isValid){
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
